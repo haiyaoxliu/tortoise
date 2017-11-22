@@ -1,0 +1,36 @@
+/*
+  printf("stuff: ");
+  char* s = malloc(50*sizeof(char));
+  fgets(s,sizeof(s),stdin);
+  s = strtok(s, "\n");
+
+char* _read() {
+  int i = 0;
+  int len = 128;
+  char* in = malloc(sizeof(char) * len);
+  int c;
+  
+  while(1) {
+    
+    c = getchar(); //getc( source )
+    
+    if (c == '\n' || c == EOF) {
+
+      in[i] = '\0';
+      return in;
+
+    }
+
+    else { 
+      in[i] = c;
+    }
+    
+    p++;
+    
+    if(!(i-len)) {
+      len += 128;
+      in = realloc(in, len);
+    }
+  }
+}
+*/
