@@ -46,8 +46,10 @@ void loop() {
       chdir(args[1]);
     }
     //execute
-    if(!exc(args)) {
-      break;
+    else{
+      if(!exc(args)) {
+        break;
+      }
     }
   }
 }
