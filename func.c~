@@ -82,13 +82,14 @@ int func(char** args) {
         exit(0);
     }
 
+
     //cd
     const char * b = "cd";
     if(!(strcmp(args[0], b))){
       
     }
   */
-
+    
   return exc(args);
   
 }

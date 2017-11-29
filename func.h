@@ -1,2 +1,2 @@
 int exc(char**);
-int func
+int func(char**);
