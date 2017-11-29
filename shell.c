@@ -3,6 +3,8 @@
 #include "shell.h"
 #include "tokenizer.h"
 #include "func.h"
+#include <string.h>
+#include <unistd.h>
 
 int main(int argc, char **argv) {
 
@@ -35,6 +37,13 @@ void loop() {
     const char * a = "exit";
     if(!(strcmp(args[0], a))){
         exit(0);
+    }
+
+
+    //cd
+    const char * b = "cd";
+    if(!(strcmp(args[0], b))){
+      chdir(args[1]);
     }
     //execute
     if(!exc(args)) {
