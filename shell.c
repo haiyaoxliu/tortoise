@@ -10,7 +10,6 @@ int main(int argc, char **argv) {
 
   //main shell loop
   loop();
-
   
   return 0;
 }
@@ -31,26 +30,10 @@ void loop() {
     //tokenize input
     args = tokenize(input);
     
-    //insert a custom catch here for cd, exit, multiple commands, etc
-    //exit
-
-    const char * a = "exit";
-    if(!(strcmp(args[0], a))){
-        exit(0);
-    }
-
-
-    //cd
-    const char * b = "cd";
-    if(!(strcmp(args[0], b))){
-      chdir(args[1]);
-    }
     //execute
-    else{
-      if(!exc(args)) {
+    
+    if(!func(args)) {
         break;
-      }
     }
   }
 }
-
