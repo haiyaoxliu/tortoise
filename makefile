@@ -16,4 +16,3 @@ run: all
 clean:
 	rm turtle
 	rm *.o
-
