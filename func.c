@@ -26,7 +26,7 @@ char* extras[] = {
 int (*funcs[]) (char**) = {
   &tcd,
   &texit
-  };
+};
 
 //exectue commands
 int exc(char** args) {
@@ -56,9 +56,17 @@ int exc(char** args) {
   //parent process
   if(pid) {
 
+    /*
+      basically we want to use WUNTRACED because the child might not be killed successfully
+      WIFSIGNALED - child was signaled to exit
+      WIFEXITED - regular exit
+     */
+
     wpid = waitpid(pid,&status,WUNTRACED);
 
-    while(!WIFSIGNALED(status) && !WEXITSTATUS(status)) {
+    //corrected to WIFEXITED
+
+    while(!WIFEXITED(status) && !WIFSIGNALED(status)) {
       wpid = waitpid(pid,&status,WUNTRACED);
     }
   }

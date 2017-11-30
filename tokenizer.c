@@ -48,7 +48,7 @@ char** tokenize(char *input) {
     i++;
     
     //if we exceed base token#, add some more
-    if( !(i - size) ) {
+    if( i >= size ) {
       size += TOKSIZE;
       tokens = realloc(tokens, size * sizeof(char*));
     }
