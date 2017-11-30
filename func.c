@@ -26,34 +26,41 @@ char* extras[] = {
 int (*funcs[]) (char**) = {
   &tcd,
   &texit
-};
+  };
 
 //exectue commands
 int exc(char** args) {
 
   //init
-  pid_t pid; //track child
+  pid_t pid, wpid;
   int status; //wpid status
 
   pid = fork();
+
+  //fork unsuccesfull
+  if(pid == -1) {
+    perror("fork error");
+  }
 
   //child process
   if(!pid) {
     
     //execute command, error catch
     if( execvp(args[0],args) == -1 ) {
-      perror("fork error");
+      perror("failed to execute command");
     }
-
     //kill child process
-    exit(0);
+    exit(1);
   }
-
+ 
   //parent process
   if(pid) {
 
-    //wait for forked child to execute
-    waitpid(pid,&status,WUNTRACED);
+    wpid = waitpid(pid,&status,WUNTRACED);
+
+    while(!WIFSIGNALED(status) && !WEXITSTATUS(status)) {
+      wpid = waitpid(pid,&status,WUNTRACED);
+    }
   }
 
   return 1;
