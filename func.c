@@ -31,44 +31,22 @@ int (*funcs[]) (char**) = {
 //exectue commands
 int exc(char** args) {
 
-  //init
-  pid_t pid, wpid;
-  int status; //wpid status
-
+  pid_t pid;
   pid = fork();
 
-  //fork unsuccesfull
-  if(pid == -1) {
+  if( pid == -1 ) {
     perror("fork error");
   }
 
-  //child process
   if(!pid) {
-    
-    //execute command, error catch
     if( execvp(args[0],args) == -1 ) {
       perror("failed to execute command");
     }
-    //kill child process
     exit(1);
   }
  
-  //parent process
   if(pid) {
-
-    /*
-      basically we want to use WUNTRACED because the child might not be killed successfully
-      WIFSIGNALED - child was signaled to exit
-      WIFEXITED - regular exit
-     */
-
-    wpid = waitpid(pid,&status,WUNTRACED);
-
-    //corrected to WIFEXITED
-
-    while(!WIFEXITED(status) && !WIFSIGNALED(status)) {
-      wpid = waitpid(pid,&status,WUNTRACED);
-    }
+    wait(NULL);
   }
 
   return 1;
@@ -76,35 +54,20 @@ int exc(char** args) {
 
 //func checker
 int func(char** args) {
-//insert a custom catch here for cd, exit, multiple commands, etc
-    //exit
   int i;
 
+  //no command
   if(args[0] == NULL) {
     return 1;
   }
 
+  //non forkable commands
   for(i = 0; i < sizeof(extras)/sizeof(char*); i++) {
     if(!strcmp(args[0],extras[i])) {
       return (*funcs[i])(args);
     }
   }
-  
-  /*
-    alexs stuff
-    const char * a = "exit";
-    if(!(strcmp(args[0], a))){
-        exit(0);
-    }
 
-    //cd
-    const char * b = "cd";
-    if(!(strcmp(args[0], b))){
-      
-    }
-  */
-
-  return exc(args);
-  
+  return exc(args);  
 }
 
