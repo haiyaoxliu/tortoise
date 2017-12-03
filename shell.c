@@ -28,20 +28,60 @@ void loop() {
   char** args; //arguments
   char dir[64];
 
-  while(1) {
+  while(17) {
     getcwd(dir,sizeof(dir));
     
     //read usr input
     printf("%s$ ", dir);
     input = readline();
 
-    //tokenize input
-    args = tokenize(input);
-    //printf("\n\n%s\n\n",input);
 
-    //execute
-    if(!func(args)) {
-        break;
+
+    if(strchr(input, ';') != NULL){
+      char**cauchy = calloc(100,1000);
+      printf("maybe?");
+      cauchy = strsep(input, ';');
+      int i = 0;
+      char** argsbackup;
+      while(cauchy[i]){
+        argsbackup = tokenize(cauchy[i]);
+        if(!func(argsbackup)){
+          break;
+        }
+        i++;
+      }
+    }
+
+
+
+
+
+
+
+    //tokenize input
+    //args = tokenize(input);
+    //printf("\n\n%s\n\n",input);
+    
+
+
+    //skya
+    //if(strchr(input, ";") != NULL){
+
+
+
+
+
+
+
+
+
+
+    else{
+      args = tokenize(input);
+     //execute
+     if(!func(args)) {
+         break;
+    }
     }
   }
 }
