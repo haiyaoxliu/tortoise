@@ -30,12 +30,12 @@ char* readline() {
   return input;
 }
 
-char** tokenize(char* input) {
+char** tokenize(char* input, char* delim) {
 
   //init 
   int size = NTOKS; //# of tokens
   char** tokens = malloc(size * sizeof(char*));
-  char* token = strtok(input, " \n\t"); //get first token
+  char* token = strtok(input, delim); //get first token
   int i = 0; //token tracker
   
   //split input str into tokens
@@ -51,7 +51,7 @@ char** tokenize(char* input) {
     }
     
     //next token
-    token = strtok(NULL, " \n\t");
+    token = strtok(NULL, delim);
   }
   
   //terminating NULL
@@ -59,23 +59,23 @@ char** tokenize(char* input) {
 
   return tokens;
 }
-
-char*** parse(char* input) {
+/*
+char** parse(char* input) {
   
-  printf("b");
+  //printf("b ");
   int size = NCMDS;
-  char*** cmds = malloc(size * sizeof(char**));
+  char** cmds = malloc(size * sizeof(char*));
   char* cmd = strtok(input, ";");
   int i = 0;
-  printf("bb");
+  printf("%s",cmd);
   while(cmd) {
     cmds[i] = tokenize(cmd);
-    printf("");
+    printf("%s",cmds[i][0]);
     i++;
 
     if( i >= size ) {
       size += NCMDS;
-      cmds = realloc(cmds, size * sizeof(char**));
+      cmds = realloc(cmds, size * sizeof(char*));
     }
 
     cmd = strtok(NULL,";");
@@ -85,3 +85,4 @@ char*** parse(char* input) {
   return cmds;
   
 }
+*/

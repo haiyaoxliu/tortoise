@@ -55,19 +55,20 @@ int exc(char** args) {
 //func checker
 int func(char** args) {
   int i;
-
+  
   //no command
   if(args[0] == NULL) {
+    perror("empty command");
     return 1;
   }
-
+    
   //non forkable commands
   for(i = 0; i < sizeof(extras)/sizeof(char*); i++) {
     if(!strcmp(args[0],extras[i])) {
       return (*funcs[i])(args);
-    }
+      }
   }
-
-  return exc(args);  
+  
+  return exc(args);
 }
 
