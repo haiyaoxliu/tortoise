@@ -38,39 +38,19 @@ void loop() {
 
 
     if(strchr(input, ';') != NULL){
-      char**cauchy = calloc(100,1000);
-      printf("maybe?");
-      cauchy = strsep(input, ';');
+      char* goteinput;
+      char** goteargs;
+      char** gotegote;
       int i = 0;
-      char** argsbackup;
-      while(cauchy[i]){
-        argsbackup = tokenize(cauchy[i]);
-        if(!func(argsbackup)){
+      while(input){
+        goteinput = strsep(&input, ";");
+        goteargs = tokenize(goteinput);
+        if(!func(goteargs)){
           break;
         }
         i++;
       }
     }
-
-
-
-
-
-
-
-    //tokenize input
-    //args = tokenize(input);
-    //printf("\n\n%s\n\n",input);
-    
-
-
-    //skya
-    //if(strchr(input, ";") != NULL){
-
-
-
-
-
 
 
 
