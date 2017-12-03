@@ -42,7 +42,7 @@ char** tokenize(char* input) {
   while(token) {
     tokens[i] = token;
     i++;
-    printf("%s\n", token);
+    //printf("%s\n", token);
 
     //if we exceed base token#, add some more
     if( i >= size ) {

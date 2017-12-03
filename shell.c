@@ -30,7 +30,7 @@ void loop() {
 
   //init
   char* input; //input string
-  char*** args; //arguments
+  char** args; //arguments
   char dir[64];
   int i = 0;
 
@@ -58,9 +58,10 @@ void loop() {
 
     else {
       args = tokenize(input);
-     //execute
-     if(!func(args)) {
-         break;
+      //execute
+      if(!func(args)) {
+	break;
+      }
     }
   }
 }
