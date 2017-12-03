@@ -34,22 +34,33 @@ void loop() {
   char dir[64];
   int i = 0;
 
-  while(1) {
+  while(17) {
     getcwd(dir,sizeof(dir));
     
     //read usr input
     printf("%s$ ", dir);
     input = readline();
 
-    //tokenize input
-    args = parse(input);
-    //printf("\n\n%s\n\n",input);
-    while(args[i]) {
-      //execute
-      if(!func(args[i])) {
-        break;
+    if(strchr(input, ';')) {
+      char* goteinput;
+      char** goteargs;
+      char** gotegote;
+      int i = 0;
+      while(input) {
+        goteinput = strsep(&input, ";");
+        goteargs = tokenize(goteinput);
+        if(!func(goteargs)){
+          break;
+        }
+        i++;
       }
-      i++;
-   }
+    }
+
+    else {
+      args = tokenize(input);
+     //execute
+     if(!func(args)) {
+         break;
+    }
   }
 }
