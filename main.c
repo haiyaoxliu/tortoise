@@ -45,15 +45,15 @@ void loop() {
     char * inputDIE2;
     inputDIE1 = input;
     inputDIE2 = input;
-     if(strchr(inputDIE1, '>') || strchr(inputDIE2, '<')){
+    if(strchr(inputDIE1, '>') || strchr(inputDIE2, '<')){
       //int pd;
       int pd = fork();
       printf("got forked");
-      if(pd == -1){
+      if(pd == -1) {
         printf("well shit");
         return;
       }
-      if(pd == 0){
+      if(pd == 0) {
         printf("check!");
         cmds = tokenize(input, ";");
         while(cmds[i]){

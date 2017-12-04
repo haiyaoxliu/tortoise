@@ -25,6 +25,13 @@ void init() {
   wipe;
 }
 
+char* ops[] = {
+  "|",
+  ">",
+  "<"
+};
+
+
 //loop
 void loop() {
 
@@ -65,6 +72,17 @@ void loop() {
     //printf("parsed\n");
     //execute
     while(cmds[i]) {
+      //char** first;
+      //char** rest;
+      int j;
+      for(j = 0; j < sizeof(ops)/sizeof(char*); j++) {
+	char** split = tokenize(cmds[i],ops[j]);
+	if(sizeof(split)/sizeof(char*) > 1) {
+	  printf("check\n\n");
+	  op(tokenize(split[0], " \n\t"),tokenize(split[1]," \n\t"),ops[j]);
+	}
+      }
+      
       args = tokenize(cmds[i]," \n\t");
       i++;
       if(!func(args)) {
