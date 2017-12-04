@@ -67,24 +67,22 @@ int main() {
       
     if(strchr(hermes, '|')){
     
-      char * gote = strsep(&hermes, "|");
-      while(hermes[0] == ' '){
-        hermes++;
-      }
-      int i = dup(0);
-      int j = dup(1);
-      int fd = open("bar", O_WRONLY);
-      dup2(fd, 1);
-      char** argsa = tokenize(gote, " ");
-      char** argsb = tokenize(hermes, " ");
-      run(argsa, 1, 0);
-      int fd2 = open("bar", O_RDONLY);
-      dup2(fd2, 0);
-      close(fd);
-      dup2(j, 1);
-      run(argsb, 1, 0);
-      dup2(i, 0);
-      close(fd2);
+    char *p = malloc(200);
+    char *q = malloc (200);
+    p = strtok(line, "|");
+    q = strtok(NULL, "|");
+
+    FILE *in;
+    extern FILE *popen();
+    char buff[512];
+    buff[0] = 0;
+    in = popen(p, "r");
+    int fd = fileno(in);
+    dup2(fd, 0);
+    exec_line(q);
+    close(fd);
+    free(p);
+    free(q);
      
     }
 
