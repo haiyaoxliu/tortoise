@@ -66,11 +66,26 @@ int main() {
     }
       
     if(strchr(hermes, '|')){
-    char ** piping = tokenize(hermes, " |");
-    while (first[0] == ' '){
-      first++;
-    }
-     piped(piping[0], piping[0]);
+    
+      char * gote = strsep(&hermes, "|");
+      while(hermes[0] == ' '){
+        hermes++;
+      }
+      int i = dup(0);
+      int j = dup(1);
+      int fd = open("bar", O_WRONLY);
+      dup2(fd, 1);
+      char** argsa = tokenize(gote, " ");
+      char** argsb = tokenize(hermes, " ");
+      run(argsa, 1, 0);
+      int fd2 = open("bar", O_RDONLY);
+      dup2(fd2, 0);
+      close(fd);
+      dup2(j, 1);
+      run(argsb, 1, 0);
+      dup2(i, 0);
+      close(fd2);
+     
     }
 
 
