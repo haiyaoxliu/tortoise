@@ -94,14 +94,6 @@ void loop() {
 
 
 
-
-
-
-
-
-
-    else{
-
     cmds = tokenize(input,";");
     while(cmds[i]) {
       args = tokenize(cmds[i]," \n\t");
@@ -109,7 +101,6 @@ void loop() {
       if(!func(args)) {
 	return;
       }
-    }
     }
   }
 }
