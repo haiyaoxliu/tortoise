@@ -8,7 +8,7 @@ completed
 * redirecting stdin with <
 
 failures:
-bugs: none known
+bugs: 
 
 Function headers:
 
