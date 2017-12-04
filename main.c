@@ -64,6 +64,14 @@ int main() {
         dup2(fd, 0);
         run(args, 1, b);
     }
+      
+    if(strchr(hermes, '|')){
+    char ** piping = tokenize(hermes, " |");
+    while (first[0] == ' '){
+      first++;
+    }
+     piped(piping[0], piping[0]);
+    }
 
 
   else{
@@ -230,6 +238,92 @@ int tcd(char** args) {
 
 int texit(char** args) {
   return 0;
+}
+
+int piped(char* first, char* rest) {
+  //printf("in func\n");
+  int k = 0;
+  /*  while(first[k]) {
+    printf("%s\n",first[k]);
+    k++;
+  }
+  k = 0;
+  while(rest[k]) {
+    printf("%s\n",rest[k]);
+    k++;
+  }
+  */
+  FILE* f2 = popen(rest,"w");
+  FILE* f1 = popen(first,"r");
+  char* out = NULL;
+  size_t len = 0;
+  while (getline(&out, &len, f1) != -1) {
+    fputs(out,f2);
+  }
+  //printf("%s",out);
+  pclose(f1);
+  // f = popen(rest,"w");
+  //fprintf(f,"%s",out);
+  pclose(f2);
+  /*  int pipefd[2];
+  pid_t i, o;
+  char* err;
+  if (pipe(pipefd) < 0) {
+    printf("pipe error");
+    return 0;
+    }
+  pipe(pipefd);
+  i = fork();
+  printf("forked %d\n",i);
+  
+  if(i < 0) {
+    perror("fork error");
+    return 0;
+  }
+  
+  //printf("no fork error\n");
+  if(!i) {
+    printf("child1\n");
+    close(pipefd[0]);
+    printf("closed1");
+    dup2(pipefd[1], STDOUT_FILENO);
+    close(pipefd[1]);
+ 
+    printf("about to exec\n");
+    if(execvp(first[0], first) < 0) {
+      sprintf(err, "failed to execute %s", first[0]);
+      perror(err);
+      exit(1);
+    }
+  }
+  else {
+    //printf("creating child 2\n");
+    o = fork();
+ 
+    if (o < 0) {
+      perror("fork error");
+      return 0;
+    }
+ 
+    if (!o) {
+      printf("\nchild2\n");
+      close(pipefd[1]);
+      printf("closed2\n");
+      dup2(pipefd[0], STDINFILENO);
+      close(pipefd[0]);
+      
+      if (execvp(rest[0], rest) < 0) {
+	printf("failed to execute %s", rest[0]);
+	exit(0);
+      }
+    }
+    else {
+      wait(NULL);
+      wait(NULL);
+    }
+  }
+  */
+  return 1;
 }
 
 char* extras[] = {
