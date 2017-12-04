@@ -7,8 +7,7 @@ completed
 * redirecing stdout with >
 * redirecting stdin with <
 
-failures:
-bugs: 
+bugs: after piping, prompt will no longer line up. can be fixed with some redirection, unsure why.
 
 Function headers:
 
