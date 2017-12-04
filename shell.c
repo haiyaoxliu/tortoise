@@ -105,7 +105,7 @@ void loop() {
 	if(!piped(split[0],split[1])) {
 	  return;
 	}
-	continue;
+	break;
       }
 
       args = tokenize(cmds[i]," \n\t");

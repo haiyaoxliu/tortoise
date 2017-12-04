@@ -24,7 +24,7 @@ char* extras[] = {
 };
 
 int piped(char* first, char* rest) {
-  printf("in func\n");
+  //printf("in func\n");
   int k = 0;
   /*  while(first[k]) {
     printf("%s\n",first[k]);
@@ -36,8 +36,18 @@ int piped(char* first, char* rest) {
     k++;
   }
   */
-  FILE* f = popen(first,"w");
-  
+  FILE* f2 = popen(rest,"w");
+  FILE* f1 = popen(first,"r");
+  char* out = NULL;
+  size_t len = 0;
+  while (getline(&out, &len, f1) != -1) {
+    fputs(out,f2);
+  }
+  //printf("%s",out);
+  pclose(f1);
+  // f = popen(rest,"w");
+  //fprintf(f,"%s",out);
+  pclose(f2);
   /*  int pipefd[2];
   pid_t i, o;
   char* err;
