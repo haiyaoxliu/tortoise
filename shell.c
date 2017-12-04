@@ -12,7 +12,7 @@
 
 int main(int argc, char **argv) {
 
-  //init();
+  init();
   loop();
   
   return 0;
@@ -25,11 +25,6 @@ void init() {
   wipe;
 }
 
-char* ops[] = {
-  "|",
-  ">",
-  "<"
-};
 
 
 //loop
@@ -40,6 +35,7 @@ void loop() {
   char** args; //arguments
   char** cmds; //separate commands;
   char dir[64];
+  char* user = getenv("USER");
   int i;
 
   while(17) {
@@ -47,7 +43,7 @@ void loop() {
     getcwd(dir,sizeof(dir));
     
     //read usr input
-    printf("%s$ ", dir);
+    printf("%s-%s$ ", dir,user);
     input = readline();
 
     /*
@@ -74,11 +70,12 @@ void loop() {
     while(cmds[i]) {
       //char** first;
       //char** rest;
-      int j = 4;
+      /*int j = 4;
       int k = 0;
       char* cmd;
       strcpy(cmd, cmds[i]);
       char** split;
+      
 
       for(j = 0; j < sizeof(ops)/sizeof(char*); j++) {
 	split = tokenize(cmd,ops[j]);
@@ -90,20 +87,33 @@ void loop() {
  	  char** r = tokenize(split[1]," \n\t");
 	  //k = 0;
 	  //while(
+	  //operate(&cmd,&cmd,"|");
 	  printf("tokenized\n\n");
+
  	  operate(f,r,ops[j]);
 	  printf("ran correctly\n\n");
 	  j = 4;
 	}
       }
 
-      if(j != 4) {
-	args = tokenize(cmds[i]," \n\t");
-	
-	i++;
-	if(!func(args)) {
+      if(j != 4) {*/
+      int k = 0;
+      char* cmd = cmds[i];
+      char** split = tokenize(cmd, "|");
+      while(split[k]) k++;
+      if(k>1) {
+	if(!piped(split[0],split[1])) {
 	  return;
 	}
+	continue;
+      }
+
+      args = tokenize(cmds[i]," \n\t");
+      
+      i++;
+      if(!func(args)) {
+	return;
+	//}
       }
     }
   }
