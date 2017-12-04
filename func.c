@@ -23,29 +23,47 @@ char* extras[] = {
   "exit"
 };
 
-/*int ppp(char** first, char** rest) {
-  printf("wtf");
-  int piped[2];
+int piped(char* first, char* rest) {
+  printf("in func\n");
+  int k = 0;
+  /*  while(first[k]) {
+    printf("%s\n",first[k]);
+    k++;
+  }
+  k = 0;
+  while(rest[k]) {
+    printf("%s\n",rest[k]);
+    k++;
+  }
+  */
+  FILE* f = popen(first,"w");
+  
+  /*  int pipefd[2];
   pid_t i, o;
   char* err;
-  printf("func");
-  if (pipe(piped) < 0) {
+  if (pipe(pipefd) < 0) {
     printf("pipe error");
     return 0;
-  }
+    }
+  pipe(pipefd);
 
   i = fork();
-
+  printf("forked %d\n",i);
+  
   if(i < 0) {
     perror("fork error");
     return 0;
   }
- 
+  
+  //printf("no fork error\n");
   if(!i) {
-    close(piped[0]);
-    dup2(piped[1], STDOUT_FILENO);
-    close(piped[1]);
+    printf("child1\n");
+    close(pipefd[0]);
+    printf("closed1");
+    dup2(pipefd[1], STDOUT_FILENO);
+    close(pipefd[1]);
  
+    printf("about to exec\n");
     if(execvp(first[0], first) < 0) {
       sprintf(err, "failed to execute %s", first[0]);
       perror(err);
@@ -53,8 +71,8 @@ char* extras[] = {
     }
 
   }
-
-  if(i) {
+  else {
+    //printf("creating child 2\n");
     o = fork();
  
     if (o < 0) {
@@ -63,23 +81,26 @@ char* extras[] = {
     }
  
     if (!o) {
-      close(piped[1]);
-      dup2(piped[0], STDIN_FILENO);
-      close(piped[0]);
+      printf("\nchild2\n");
+      close(pipefd[1]);
+      printf("closed2\n");
+      dup2(pipefd[0], STDINFILENO);
+      close(pipefd[0]);
       
       if (execvp(rest[0], rest) < 0) {
 	printf("failed to execute %s", rest[0]);
 	exit(0);
       }
     }
-
-    wait(NULL);
-    wait(NULL);
+    else {
+      wait(NULL);
+      wait(NULL);
+    }
   }
-
+  */
   return 1;
 }
-*/
+
 
 int (*funcs[]) (char**) = {
   &tcd,
@@ -112,7 +133,17 @@ int exc(char** args) {
 
 //func checker
 int func(char** args) {
-  int i;
+  int i = 0;
+  
+  /*while(args[i]) {
+    printf("%s\n",args[i]);
+    if(!strcmp(args[i],"|")) {
+      printf("pipe found\n");
+      args[i] = NULL;
+      return piped(args, &args[i+1]);
+    }
+    i++;
+    }*/
   
   //no command
   if(args[0] == NULL) {

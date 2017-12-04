@@ -115,7 +115,7 @@ void interpret(char** tokens, char* input) {
     //if token is |<>; then exec(|<>;, tokens, address token+token length)
     int j;
     for(j = 0; j < sizeof(ops)/sizeof(char*); j++) {
-      printf("inside ops loop\n\n");
+      printf("inside ops loop\n\n\t%s",token);
       if(!strcmp(token,ops[j])) {
 	printf("correct op\n\n");
 	tokens[i] = NULL;
@@ -125,6 +125,7 @@ void interpret(char** tokens, char* input) {
       }
     }
 
+    printf("out of loop");
     //else just add token
     tokens[i] = token;
     i++;

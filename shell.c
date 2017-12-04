@@ -35,6 +35,7 @@ void loop() {
   char** args; //arguments
   char** cmds; //separate commands;
   char dir[64];
+  char* user = getenv("USER");
   int i;
 
   while(17) {
@@ -42,7 +43,7 @@ void loop() {
     getcwd(dir,sizeof(dir));
     
     //read usr input
-    printf("\n%s$ ", dir);
+    printf("%s-%s$ ", dir,user);
     input = readline();
 
     /*
@@ -74,6 +75,7 @@ void loop() {
       char* cmd;
       strcpy(cmd, cmds[i]);
       char** split;
+      
 
       for(j = 0; j < sizeof(ops)/sizeof(char*); j++) {
 	split = tokenize(cmd,ops[j]);
@@ -95,6 +97,17 @@ void loop() {
       }
 
       if(j != 4) {*/
+      int k = 0;
+      char* cmd = cmds[i];
+      char** split = tokenize(cmd, "|");
+      while(split[k]) k++;
+      if(k>1) {
+	if(!piped(split[0],split[1])) {
+	  return;
+	}
+	continue;
+      }
+
       args = tokenize(cmds[i]," \n\t");
       
       i++;
