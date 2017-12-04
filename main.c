@@ -26,11 +26,11 @@ int main() {
     getcwd(dir, sizeof(dir));
     printf("%s$ ", dir);
     input = readline();
-    input[strlen(line)-1] ='\0'; //credit to michael lee for assistance, null terminate string 
-    if (strcmp(line, "exit")==0){
+    input[strlen(input)-1] ='\0'; //credit to michael lee for assistance, null terminate string 
+    if (strcmp(input, "exit")==0){
       exit(1);
     }
-   else if (strstr(line, "cd")){
+   else if (strstr(input, "cd")){
       char ** args = tokenize(input, " ");
       chdir(args[1]);
     }
