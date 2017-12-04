@@ -6,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-
+#include <fcntl.h>
 #define wipe printf("\033[H\033[J")
 #define NTOKS 32
 //#define NCMDS 1
@@ -41,6 +41,66 @@ void loop() {
     
     printf("%s$ ", dir);
     input = readline();
+    char * inputDIE1;
+    char * inputDIE2;
+    inputDIE1 = input;
+    inputDIE2 = input;
+     if(strchr(inputDIE1, '>') || strchr(inputDIE2, '<')){
+      //int pd;
+      int pd = fork();
+      printf("got forked");
+      if(pd == -1){
+        printf("well shit");
+        return;
+      }
+      if(pd == 0){
+        printf("check!");
+        cmds = tokenize(input, ";");
+        while(cmds[i]){
+          args = tokenize(cmds[i], " \n\t");
+          int k;
+          int h;
+          for(k = 0; k<6; k++){
+            if(strcmp(args[k], ">" ) == 0){
+              h = k;
+              k = 6;
+            }
+            k++;
+          }
+          printf("made it 1");
+        if(strchr(cmds[i], '>') != NULL){
+          int fdout;
+          char* name = args[k+1];
+          fdout = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+          dup2(fdout, 1);
+          close(fdout);
+          printf("made it 2");
+        }/*
+        if(strchr(cmds[i], '<') != NULL){
+          int fdint;
+          fdint = open(input1, O_RDONLY, 0);
+          dup2(fdint, 0);
+          close(fdint);
+        }
+        */
+        }
+      }
+      else{
+        waitpid(pd, 0, 0);
+      }
+    }
+      
+
+
+
+
+
+
+
+
+
+
+    else{
 
     cmds = tokenize(input,";");
     while(cmds[i]) {
@@ -49,6 +109,7 @@ void loop() {
       if(!func(args)) {
 	return;
       }
+    }
     }
   }
 }
