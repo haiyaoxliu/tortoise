@@ -12,7 +12,7 @@
 
 int main(int argc, char **argv) {
 
-  //init();
+  init();
   loop();
   
   return 0;
@@ -25,11 +25,6 @@ void init() {
   wipe;
 }
 
-char* ops[] = {
-  "|",
-  ">",
-  "<"
-};
 
 
 //loop
@@ -47,7 +42,7 @@ void loop() {
     getcwd(dir,sizeof(dir));
     
     //read usr input
-    printf("%s$ ", dir);
+    printf("\n%s$ ", dir);
     input = readline();
 
     /*
@@ -74,7 +69,7 @@ void loop() {
     while(cmds[i]) {
       //char** first;
       //char** rest;
-      int j = 4;
+      /*int j = 4;
       int k = 0;
       char* cmd;
       strcpy(cmd, cmds[i]);
@@ -90,20 +85,22 @@ void loop() {
  	  char** r = tokenize(split[1]," \n\t");
 	  //k = 0;
 	  //while(
+	  //operate(&cmd,&cmd,"|");
 	  printf("tokenized\n\n");
+
  	  operate(f,r,ops[j]);
 	  printf("ran correctly\n\n");
 	  j = 4;
 	}
       }
 
-      if(j != 4) {
-	args = tokenize(cmds[i]," \n\t");
-	
-	i++;
-	if(!func(args)) {
-	  return;
-	}
+      if(j != 4) {*/
+      args = tokenize(cmds[i]," \n\t");
+      
+      i++;
+      if(!func(args)) {
+	return;
+	//}
       }
     }
   }

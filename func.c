@@ -23,13 +23,7 @@ char* extras[] = {
   "exit"
 };
 
-char* types[] = {
-  "|",
-  ">",
-  "<"
-};
-
-int ppp(char** first, char** rest) {
+/*int ppp(char** first, char** rest) {
   printf("wtf");
   int piped[2];
   pid_t i, o;
@@ -85,22 +79,7 @@ int ppp(char** first, char** rest) {
 
   return 1;
 }
-
-int rr(char** first, char** rest) {
-  //code here
-  return 0;
-}
-
-int lr(char** first, char** rest) {
-  //code here
-  return 0;
-}
-
-int (*typef[]) (char**first,char**rest) = {
-  &ppp,
-  &rr,
-  &lr
-};
+*/
 
 int (*funcs[]) (char**) = {
   &tcd,
@@ -151,17 +130,17 @@ int func(char** args) {
   return exc(args);
 }
 
-int operate(char** first, char** rest, char* op) {
+/*int operate(char** first, char** rest, char* op) {
   int i;
   //pipe/redirect
-  printf("op");
+  printf("op\n");
   for(i = 0; i < sizeof(types)/sizeof(char*); i++) {
     if(!strcmp(op,types[i])) {
       //printf("%s\n\n%d\n\n\n",types[i],i);
-      printf("the fuck");
+      printf("the fuck\n");
       return ppp(first, rest);
     }
   }
   
   return 0;
-}
+  }*/
