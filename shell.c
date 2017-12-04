@@ -5,7 +5,7 @@
 #include "func.h"
 #include <string.h>
 #include <unistd.h>
-
+#include <fcntl.h> 
 //clear
 #define wipe printf("\033[H\033[J")
 

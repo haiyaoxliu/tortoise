@@ -1,20 +1,19 @@
 # notatortoise
 
 completed
-* single command support
+* binaries, cd, exit
+* semicolons
 
 todo
 * header file
-* multiple commands separated by ;
-* exit, cd - check chdir()
-* stdio redirection with > and <
-* pipes - check popen()
+* | and <>
 
 ## features:
-* single preexisting bash commands
+* bash commands, cd, exit
+* semicolons
 
 ## headers:
-* put headers here
+* 
 
 
 
