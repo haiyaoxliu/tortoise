@@ -69,7 +69,7 @@ int main() {
     
     char *p = malloc(200);
     char *q = malloc (200);
-    p = strtok(line, "|");
+    p = strtok(hermes, "|");
     q = strtok(NULL, "|");
 
     FILE *in;
@@ -78,11 +78,13 @@ int main() {
     buff[0] = 0;
     in = popen(p, "r");
     int fd = fileno(in);
+    int fd1 = dup(0);
     dup2(fd, 0);
-    exec_line(q);
+    run(tokenize(q, " "), 1, 0);
+    dup2(fd1, 0);
     close(fd);
-    free(p);
-    free(q);
+    //free(p);
+    //free(q);
      
     }
 

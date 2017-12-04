@@ -1,6 +1,5 @@
-all: shell.o tokenizer.o func.o
-	gcc -o turtle shell.o tokenizer.o func.o
-
+all: 
+	gcc main.c
 shell.o: shell.c shell.h
 	gcc -c shell.c
 
@@ -11,7 +10,8 @@ func.o: func.c func.h
 	gcc -c func.c
 
 run: all
-	./turtle
+	make
+	./a.out
 
 clean:
 	rm turtle
