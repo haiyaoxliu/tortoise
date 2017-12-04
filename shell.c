@@ -12,7 +12,7 @@
 
 int main(int argc, char **argv) {
 
-  init();
+  //init();
   loop();
   
   return 0;
@@ -74,19 +74,36 @@ void loop() {
     while(cmds[i]) {
       //char** first;
       //char** rest;
-      int j;
+      int j = 4;
+      int k = 0;
+      char* cmd;
+      strcpy(cmd, cmds[i]);
+      char** split;
+
       for(j = 0; j < sizeof(ops)/sizeof(char*); j++) {
-	char** split = tokenize(cmds[i],ops[j]);
-	if(sizeof(split)/sizeof(char*) > 1) {
-	  printf("check\n\n");
-	  op(tokenize(split[0], " \n\t"),tokenize(split[1]," \n\t"),ops[j]);
+	split = tokenize(cmd,ops[j]);
+	
+	while(split[k]) k++;
+	if(k>1) {
+	  printf("inside, %d\n\n%s\n\n%s\n\n",k,split[0],split[1]);
+	  char** f = tokenize(split[0]," \n\t");
+ 	  char** r = tokenize(split[1]," \n\t");
+	  //k = 0;
+	  //while(
+	  printf("tokenized\n\n");
+ 	  operate(f,r,ops[j]);
+	  printf("ran correctly\n\n");
+	  j = 4;
 	}
       }
-      
-      args = tokenize(cmds[i]," \n\t");
-      i++;
-      if(!func(args)) {
-	return;
+
+      if(j != 4) {
+	args = tokenize(cmds[i]," \n\t");
+	
+	i++;
+	if(!func(args)) {
+	  return;
+	}
       }
     }
   }

@@ -29,13 +29,14 @@ char* types[] = {
   "<"
 };
 
-int p(char** first, char** rest) {
-  int piped[2]; 
+int ppp(char** first, char** rest) {
+  printf("wtf");
+  int piped[2];
   pid_t i, o;
   char* err;
- 
+  printf("func");
   if (pipe(piped) < 0) {
-    printf("\nPipe could not be initialized");
+    printf("pipe error");
     return 0;
   }
 
@@ -73,7 +74,7 @@ int p(char** first, char** rest) {
       close(piped[0]);
       
       if (execvp(rest[0], rest) < 0) {
-	printf("\nCould not execute command 2..");
+	printf("failed to execute %s", rest[0]);
 	exit(0);
       }
     }
@@ -95,8 +96,8 @@ int lr(char** first, char** rest) {
   return 0;
 }
 
-int (*typef[]) (char**,char**) = {
-  &p,
+int (*typef[]) (char**first,char**rest) = {
+  &ppp,
   &rr,
   &lr
 };
@@ -150,12 +151,15 @@ int func(char** args) {
   return exc(args);
 }
 
-int op(char** first, char** rest, char* op) {
+int operate(char** first, char** rest, char* op) {
   int i;
   //pipe/redirect
+  printf("op");
   for(i = 0; i < sizeof(types)/sizeof(char*); i++) {
     if(!strcmp(op,types[i])) {
-      return (*typef[i])(first, rest);
+      //printf("%s\n\n%d\n\n\n",types[i],i);
+      printf("the fuck");
+      return ppp(first, rest);
     }
   }
   
